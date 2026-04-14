@@ -322,8 +322,8 @@ export function AddImapAccount({
             host: form.smtpHost,
             port: form.smtpPort,
             security: mapSecurity(form.smtpSecurity),
-            username: (!form.sameCredentials && form.smtpUsername)
-              ? form.smtpUsername
+            username: (!form.sameCredentials && form.smtpUsername.trim())
+              ? form.smtpUsername.trim()
               : form.imapUsername || (isOAuth ? (form.oauthEmail ?? form.email) : form.email),
             password: smtpPassword,
             auth_method: isOAuth ? "oauth2" : "password",
@@ -391,7 +391,7 @@ export function AddImapAccount({
           password: form.password,
           imapUsername,
           smtpUsername: !form.sameCredentials && form.smtpUsername.trim() ? form.smtpUsername.trim() : null,
-          smtpPassword: !form.sameCredentials && form.smtpPassword.trim() ? form.smtpPassword : null,
+          smtpPassword: !form.sameCredentials && form.smtpPassword ? form.smtpPassword : null,
           acceptInvalidCerts: form.acceptInvalidCerts,
         });
       }

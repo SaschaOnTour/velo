@@ -273,13 +273,28 @@ describe("accounts", () => {
         password: "pass",
       });
 
+      expect(mockExecute).toHaveBeenCalledTimes(1);
       const [sql, params] = mockExecute.mock.calls[0] as [string, unknown[]];
       expect(sql).toContain("smtp_username");
       expect(sql).toContain("smtp_password");
-      // smtp_username and smtp_password should be null
-      const paramArray = params as unknown[];
-      const smtpUsernameIdx = paramArray.indexOf(null, paramArray.indexOf("password"));
-      expect(smtpUsernameIdx).toBeGreaterThan(-1);
+      expect(params).toEqual([
+        "imap-no-smtp",
+        "user@example.com",
+        null, // displayName
+        null, // avatarUrl
+        "imap.example.com",
+        993,
+        "ssl",
+        "smtp.example.com",
+        465,
+        "ssl",
+        "password",
+        "enc:pass", // encrypted imap password
+        null, // imap_username
+        null, // smtp_username
+        null, // smtp_password
+        0, // accept_invalid_certs
+      ]);
     });
   });
 
