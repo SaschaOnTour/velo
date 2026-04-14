@@ -394,7 +394,7 @@ export function AddImapAccount({
           password: form.password,
           imapUsername,
           smtpUsername: !form.sameCredentials && form.smtpUsername.trim() ? form.smtpUsername.trim() : null,
-          smtpPassword: !form.sameCredentials && form.smtpPassword ? form.smtpPassword : null,
+          smtpPassword: !form.sameCredentials && form.smtpPassword.trim().length > 0 ? form.smtpPassword : null,
           acceptInvalidCerts: form.acceptInvalidCerts,
         });
       }
